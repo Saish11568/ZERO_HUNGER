@@ -1,1 +1,0 @@
-(function(){function e(e,t){var n=document.createElement(`script`);n.src=e,n.onload=t,document.head.appendChild(n)}var t=`/src/js/`;e(t+`trl_engine.js`,function(){e(t+`trl_pages.js`,null)})})();
