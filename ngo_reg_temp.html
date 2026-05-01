@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZeroHunger - NGO Registration</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "surface-variant": "#dce2f7",
+                            "outline-variant": "#bec9c9",
+                            "surface-dim": "#d3daef",
+                            "on-secondary-container": "#684000",
+                            "secondary-fixed-dim": "#ffb95f",
+                            "on-tertiary-fixed": "#002113",
+                            "secondary": "#855300",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-highest": "#dce2f7",
+                            "error-container": "#ffdad6",
+                            "tertiary-fixed-dim": "#4edea3",
+                            "surface-container": "#e9edff",
+                            "secondary-fixed": "#ffddb8",
+                            "on-error": "#ffffff",
+                            "surface-container-lowest": "#ffffff",
+                            "surface-container-low": "#f1f3ff",
+                            "on-primary": "#ffffff",
+                            "tertiary-fixed": "#6ffbbe",
+                            "error": "#ba1a1a",
+                            "on-secondary-fixed": "#2a1700",
+                            "primary": "#00595c",
+                            "inverse-primary": "#81d4d8",
+                            "primary-fixed": "#9df0f4",
+                            "on-surface-variant": "#3e4949",
+                            "on-surface": "#141b2b",
+                            "tertiary": "#005c3e",
+                            "tertiary-container": "#007751",
+                            "on-background": "#141b2b",
+                            "on-error-container": "#93000a",
+                            "on-tertiary-fixed-variant": "#005236",
+                            "on-primary-fixed-variant": "#004f52",
+                            "on-secondary": "#ffffff",
+                            "outline": "#6e7979",
+                            "on-secondary-fixed-variant": "#653e00",
+                            "primary-fixed-dim": "#81d4d8",
+                            "inverse-surface": "#293040",
+                            "background": "#f9f9ff",
+                            "on-primary-container": "#a2f5f9",
+                            "inverse-on-surface": "#edf0ff",
+                            "surface": "#f9f9ff",
+                            "surface-tint": "#00696d",
+                            "primary-container": "#0d7377",
+                            "surface-bright": "#f9f9ff",
+                            "surface-container-high": "#e1e8fd",
+                            "on-tertiary-container": "#83ffc6",
+                            "secondary-container": "#fea619",
+                            "on-primary-fixed": "#002021"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "stack-md": "16px",
+                            "gutter": "24px",
+                            "max-container": "1440px",
+                            "stack-lg": "32px",
+                            "margin-page": "48px",
+                            "stack-sm": "8px",
+                            "sidebar-width": "240px"
+                    },
+                    "fontFamily": {
+                            "h1": ["Inter"],
+                            "label-md": ["Inter"],
+                            "body-md": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "display": ["Inter"],
+                            "body-sm": ["Inter"],
+                            "h3": ["Inter"],
+                            "label-sm": ["Inter"],
+                            "h2": ["Inter"]
+                    },
+                    "fontSize": {
+                            "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                            "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                            "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                            "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                            "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased min-h-screen flex">
+<!-- Split Screen Layout -->
+<div class="flex w-full min-h-screen">
+<!-- Left Panel: Branding / Image (Hidden on Mobile) -->
+<div class="hidden lg:flex lg:w-[45%] relative bg-surface-container-high overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="A striking, editorial-style photograph depicting a modern, clean food distribution warehouse bathed in soft, natural morning light. Volunteers in neat, minimalist aprons are organizing boxes of fresh produce on stainless steel tables. The overall aesthetic is 'Minimalist Corporate for Social Good', characterized by bright whites, deep shadows, and subtle teal accents in the environment. The mood is highly organized, hopeful, and deeply institutional." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAB2pm6gEhYQehmbViFNrmD4HRua9yT2IR_3fJKoTeXi4L1FGuqp9KoUEzIpoNRTjBtsTt43WIhrbLc-YMry4jkmxvA4wNCPJ7HF_9EXVqrNGlgG9ExKqgPQx5bB4JSiKsG58WEC633RuHYv7thAl9TIT-IIoGsJGH-wKgGlWEnvU5r6-87Qc1hNoIkNTTfpcP3b7eggi37Gl2_wsCWu_mHmKzNY2B-VnPl9fY0_1RFDiHfVR2KcMUPJY-37QM5SM2JaRIOfnmwh9-6');">
+</div>
+<!-- Gradient Overlay for Text Readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/90 via-inverse-surface/40 to-transparent"></div>
+<!-- Branding Content -->
+<div class="relative z-10 flex flex-col justify-end p-margin-page h-full text-surface-container-lowest">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined icon-fill text-[32px] text-tertiary-fixed">volunteer_activism</span>
+<span class="font-h3 text-h3 font-black tracking-tight text-surface-container-lowest">ZeroHunger</span>
+</div>
+<h1 class="font-display text-display text-surface-container-lowest mb-stack-md max-w-lg">
+                    Empowering the frontline of food security.
+                </h1>
+<p class="font-body-lg text-body-lg text-surface-container-lowest/80 max-w-md">
+                    Join our network of verified Demand Centres to receive surplus food directly from corporate partners and local businesses. Let's bridge the gap together.
+                </p>
+</div>
+</div>
+<!-- Right Panel: Registration Form -->
+<div class="w-full lg:w-[55%] flex flex-col items-center justify-center p-gutter md:p-margin-page bg-surface-container-lowest overflow-y-auto">
+<div class="w-full max-w-[560px] mx-auto py-stack-lg">
+<!-- Mobile Branding (Visible only on small screens) -->
+<div class="lg:hidden flex items-center gap-2 mb-stack-lg">
+<span class="material-symbols-outlined icon-fill text-[28px] text-primary">volunteer_activism</span>
+<span class="font-h3 text-h3 font-black tracking-tight text-on-surface">ZeroHunger</span>
+</div>
+<!-- Header -->
+<div class="mb-stack-lg">
+<h2 class="font-h1 text-h1 text-on-surface mb-stack-sm">Partner Registration</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Create an account to manage donations and logistics.</p>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-outline-variant/30 mb-stack-lg w-full">
+<button class="flex-1 pb-3 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer">
+                        Donor / Business
+                    </button>
+<button class="flex-1 pb-3 text-center font-label-md text-label-md text-primary border-b-2 border-primary cursor-pointer">
+                        NGO / Demand Centre
+                    </button>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-stack-md">
+<!-- Row 1: Organisation Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Organisation Name *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="e.g. Hope Foundation" type="text"/>
+</div>
+<!-- Row 2: Registration & Type -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Registration Number *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="NGO ID / Tax ID" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Facility Type *</label>
+<div class="relative">
+<select class="w-full h-12 px-4 appearance-none rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all cursor-pointer">
+<option disabled="" selected="" value="">Select facility type</option>
+<option value="shelter">Shelter</option>
+<option value="orphanage">Orphanage</option>
+<option value="old_age_home">Old Age Home</option>
+<option value="community_kitchen">Community Kitchen</option>
+<option value="relief_camp">Relief Camp</option>
+<option value="other">Other</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Row 3: Capacity & Hours -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Capacity (Meals/Day) *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="e.g. 150" type="number"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Operating Hours *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="e.g. 08:00 AM - 08:00 PM" type="text"/>
+</div>
+</div>
+<!-- Row 4: Contact Info -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Primary Phone *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Contact Email *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="coordinator@ngo.org" type="email"/>
+</div>
+</div>
+<!-- Row 5: Area/Locality -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Area / Locality *</label>
+<input class="w-full h-12 px-4 rounded-[10px] border-[1.5px] border-outline-variant bg-transparent font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all placeholder:text-outline-variant" placeholder="Enter neighborhood or district" type="text"/>
+</div>
+<!-- Row 6: Dietary Restrictions (Multi-select Pills) -->
+<div class="flex flex-col gap-2 mt-stack-sm">
+<label class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mb-1">Dietary Requirements (Select all that apply)</label>
+<div class="flex flex-wrap gap-2">
+<!-- Inactive Pills -->
+<div class="px-4 py-2 rounded-full border-[1.5px] border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant cursor-pointer hover:border-primary hover:text-primary transition-colors">
+                                Vegetarian
+                            </div>
+<div class="px-4 py-2 rounded-full border-[1.5px] border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant cursor-pointer hover:border-primary hover:text-primary transition-colors">
+                                No Dairy
+                            </div>
+<!-- Active Pill Simulation -->
+<div class="px-4 py-2 rounded-full border-[1.5px] border-primary bg-primary-container font-label-md text-label-md text-on-primary-container cursor-pointer transition-colors shadow-[0_4px_12px_rgba(13,115,119,0.15)]">
+                                Halal
+                            </div>
+<div class="px-4 py-2 rounded-full border-[1.5px] border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant cursor-pointer hover:border-primary hover:text-primary transition-colors">
+                                No Nuts
+                            </div>
+<div class="px-4 py-2 rounded-full border-[1.5px] border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant cursor-pointer hover:border-primary hover:text-primary transition-colors">
+                                Jain
+                            </div>
+<div class="px-4 py-2 rounded-full border-[1.5px] border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant cursor-pointer hover:border-primary hover:text-primary transition-colors">
+                                No Restrictions
+                            </div>
+</div>
+</div>
+<!-- Divider -->
+<div class="w-full h-px bg-outline-variant/30 my-stack-sm"></div>
+<!-- Submit Button -->
+<button class="w-full h-14 rounded-[10px] bg-secondary-container font-label-md text-label-md text-on-secondary-container font-bold tracking-wide hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-[0_8px_24px_-8px_rgba(254,166,25,0.4)]" type="button">
+                        Register as NGO
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<!-- Footer Link -->
+<div class="text-center mt-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                            Already registered? <a class="text-primary font-medium hover:underline" href="#">Log in to dashboard</a>
+</p>
+</div>
+</form>
+</div>
+</div>
+</div>
+</body></html>

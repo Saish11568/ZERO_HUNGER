@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tero - AI Food Decay Engine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    
+    /* Custom Slider Styles */
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 20px;
+      width: 20px;
+      border-radius: 50%;
+      background: #00C896;
+      cursor: pointer;
+      margin-top: -8px;
+      box-shadow: 0 0 10px rgba(0, 200, 150, 0.3);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
+    
+    .glass-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .svg-ring {
+      transition: stroke-dashoffset 0.3s ease-in-out, stroke 0.3s ease;
+    }
+
+    /* Modal Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-up {
+      animation: fadeUp 0.5s forwards;
+    }
+
+    @keyframes pulse-glow {
+      0% { box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); }
+      50% { box-shadow: 0 4px 25px rgba(124, 58, 237, 0.7); }
+      100% { box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4); }
+    }
+
+    .btn-glow {
+      animation: pulse-glow 2s infinite;
+    }
+
+    .typewriter-line {
+      opacity: 0;
+      transform: translateY(5px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    
+    .typewriter-line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Danger zone bar transition */
+    #danger-bar-fill {
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+
+    /* Hide scrollbar for food list */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- TOP NAV -->
+  <nav class="h-16 border-b border-slate-200 bg-white flex items-center justify-between px-6 z-10 sticky top-0 shadow-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-[#7C3AED] flex items-center justify-center font-black text-white text-lg">T</div>
+      <span class="font-bold text-xl tracking-tight text-slate-900">Tero</span>
+      <span class="text-slate-500 text-sm ml-2 hidden sm:inline">AI Food Decay Engine</span>
+    </div>
+    <div class="flex items-center gap-4 text-sm">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 rounded-full bg-[#00C896] animate-pulse"></div>
+        <span class="text-[#00C896] font-semibold tracking-wider text-xs">ENGINE LIVE</span>
+      </div>
+      <div class="bg-slate-50 border border-slate-200 px-3 py-1 rounded-full text-slate-500 text-xs font-medium">
+        v2.4.1 · WHO/FSSAI/USDA
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN LAYOUT -->
+  <main class="flex-1 p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-[1600px] mx-auto w-full">
+    
+    <!-- LEFT PANEL: Controls -->
+    <div class="col-span-1 lg:col-span-3 flex flex-col gap-4">
+      
+      <!-- Temp Card -->
+      <div class="glass-card p-5">
+        <div class="flex justify-between items-end mb-4">
+          <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Ambient Temp</span>
+          <span id="temp-val" class="text-3xl font-black text-[#00C896]">25°C</span>
+        </div>
+        <input type="range" id="temp-slider" min="0" max="50" value="25" step="1">
+        <div class="flex justify-between text-[10px] text-slate-500 mt-2 font-medium">
+          <span>0°C Freezing</span>
+          <span class="text-[#EF4444]">63°C Danger</span>
+          <span>50°C</span>
+        </div>
+      </div>
+
+      <!-- Hours Card -->
+      <div class="glass-card p-5">
+        <div class="flex justify-between items-end mb-4">
+          <span class="text-slate-500 text-xs font-bold uppercase tracking-wider">Hours Since Prep</span>
+          <span id="hours-val" class="text-3xl font-black text-[#00C896]">1.5h</span>
+        </div>
+        <input type="range" id="hours-slider" min="0" max="12" value="1.5" step="0.5">
+        <div class="flex justify-between text-[10px] text-slate-500 mt-2 font-medium">
+          <span>0h Fresh</span>
+          <span>6h</span>
+          <span>12h</span>
+        </div>
+      </div>
+
+      <!-- Storage Card -->
+      <div class="glass-card p-5">
+        <span class="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-3">Storage Condition</span>
+        <div class="flex bg-slate-100 rounded-lg p-1 border border-slate-200">
+          <button id="btn-refrig" class="storage-btn flex-1 py-2 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-900 transition" data-val="refrigerated">Refrigerated</button>
+          <button id="btn-covered" class="storage-btn flex-1 py-2 text-xs font-semibold rounded-md text-slate-500 hover:text-slate-900 transition" data-val="covered">Covered</button>
+          <button id="btn-open" class="storage-btn flex-1 py-2 text-xs font-semibold rounded-md bg-[#7C3AED] text-white shadow-sm transition" data-val="open">Open Air</button>
+        </div>
+      </div>
+
+      <!-- Parameters Card -->
+      <div class="glass-card p-5 flex-1">
+        <span class="text-slate-500 text-xs font-bold uppercase tracking-wider block mb-4 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#7C3AED]"></span>
+          Decay Parameters
+        </span>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between border-b border-slate-100 pb-2">
+            <span class="text-slate-500 font-mono text-xs">Decay Rate (k)</span>
+            <span id="param-k" class="font-mono text-[#00C896] font-bold text-xs">0.000</span>
+          </div>
+          <div class="flex justify-between border-b border-slate-100 pb-2">
+            <span class="text-slate-500 font-mono text-xs">Rate vs 25°C</span>
+            <span id="param-factor" class="font-mono text-slate-900 font-bold text-xs">1.0x</span>
+          </div>
+          <div class="flex justify-between border-b border-slate-100 pb-2">
+            <span class="text-slate-500 font-mono text-xs">Ea (kJ/mol)</span>
+            <span id="param-ea" class="font-mono text-slate-900 font-bold text-xs">--</span>
+          </div>
+          <div class="flex justify-between border-b border-slate-100 pb-2">
+            <span class="text-slate-500 font-mono text-xs">T (Kelvin)</span>
+            <span id="param-kelvin" class="font-mono text-slate-900 font-bold text-xs">298.15K</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-mono text-xs">Max Shelf Life</span>
+            <span id="param-shelf" class="font-mono text-slate-900 font-bold text-xs">--h</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CENTER PANEL: Ring & Verification -->
+    <div class="col-span-1 lg:col-span-6 flex flex-col items-center justify-center p-6 lg:p-12 relative min-h-[400px]">
+      
+      <!-- Ring Container -->
+      <div class="relative w-72 h-72 lg:w-96 lg:h-96 flex items-center justify-center">
+        <!-- SVG Ring -->
+        <svg class="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="6" />
+          <circle id="trl-ring" cx="50" cy="50" r="45" fill="none" stroke="#00C896" stroke-width="6" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" class="svg-ring" />
+        </svg>
+        
+        <!-- Score Inside -->
+        <div class="relative z-10 flex flex-col items-center">
+          <span class="text-slate-500 text-sm font-bold tracking-widest uppercase mb-1">TRL Score</span>
+          <span id="trl-score-display" class="text-7xl lg:text-8xl font-black text-slate-900 leading-none tracking-tighter">100</span>
+          <span id="trl-status-pill" class="mt-4 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#00C896]/10 text-[#00C896] border border-[#00C896]/20">SAFE</span>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center flex flex-col items-center gap-1">
+        <span class="text-slate-500 text-sm font-medium">Remaining Safe Window</span>
+        <span id="rem-hours-display" class="text-3xl font-bold text-slate-900">--h</span>
+      </div>
+
+      <button id="verify-btn" class="mt-10 bg-gradient-to-r from-[#7C3AED] to-[#6D28D9] text-white px-10 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all active:scale-95 btn-glow flex items-center gap-3">
+        <span class="material-icons text-[20px]">science</span>
+        Verify Now
+      </button>
+
+    </div>
+
+    <!-- RIGHT PANEL: Food List -->
+    <div class="col-span-1 lg:col-span-3 glass-card flex flex-col h-[600px] lg:h-auto">
+      <div class="p-5 border-b border-slate-200">
+        <h3 class="text-sm font-bold text-slate-900 tracking-wide">Food Categories</h3>
+        <p class="text-xs text-slate-500 mt-1">Live Arrhenius tracking</p>
+      </div>
+      <div id="food-list" class="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- BOTTOM SECTION -->
+  <div class="p-6 pt-0 max-w-[1600px] mx-auto w-full flex flex-col gap-6">
+    <!-- Danger Zone Bar -->
+    <div class="glass-card p-5">
+      <div class="flex justify-between items-end mb-3">
+        <div>
+          <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+            WHO 4-Hour Cumulative Danger Zone
+          </h4>
+          <p class="text-xs text-slate-500 mt-1">Time spent between 5°C – 63°C (hard enforcement threshold)</p>
+        </div>
+        <span id="danger-text" class="text-sm font-bold text-slate-900">0.0h of 4h</span>
+      </div>
+      <div class="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
+        <div id="danger-bar-fill" class="h-full bg-[#00C896] w-[0%]"></div>
+      </div>
+      <p id="danger-warning" class="text-xs font-bold text-[#EF4444] mt-2 hidden animate-pulse">LIMIT EXCEEDED — DISCARD IMMEDIATELY</p>
+    </div>
+
+    <!-- Standards Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card p-5">
+        <span class="flex items-center gap-2 text-xs font-bold text-slate-900 mb-4">
+          <span class="w-2 h-2 rounded-full bg-[#3B82F6]"></span> WHO Standards
+        </span>
+        <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-500 font-mono">
+          <span>CAC/GL 52-2003</span>
+          <span>WHO/FOS/94.3</span>
+          <span>CODEX STAN 192</span>
+          <span>CAC/GL 21-1997</span>
+        </div>
+      </div>
+      <div class="glass-card p-5">
+        <span class="flex items-center gap-2 text-xs font-bold text-slate-900 mb-4">
+          <span class="w-2 h-2 rounded-full bg-[#10B981]"></span> FSSAI India
+        </span>
+        <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-500 font-mono">
+          <span>FSS ACT 2006</span>
+          <span>FSSAI-1.2.1</span>
+          <span>FSS(FSM) REG 2011</span>
+          <span>FoSCoS 2022</span>
+        </div>
+      </div>
+      <div class="glass-card p-5">
+        <span class="flex items-center gap-2 text-xs font-bold text-slate-900 mb-4">
+          <span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span> USDA / FDA
+        </span>
+        <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-500 font-mono">
+          <span>21 CFR 110</span>
+          <span>USDA-AMS-220</span>
+          <span>FDA CFR Title 21</span>
+          <span>FDA FSMA 2011</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="flex flex-col sm:flex-row justify-between items-center text-[10px] text-slate-400 font-mono mt-4 pb-4">
+      <span>Tero v2.4.1 · Arrhenius Decay Model · R = 8.314 J/mol·K</span>
+      <span class="mt-2 sm:mt-0 text-right">WHO/FOS/94.3 &nbsp; FSSAI FSS ACT 2006<br/>USDA FoodKeeper &nbsp; ComBase 2023</span>
+    </footer>
+  </div>
+
+  <!-- VERIFICATION OVERLAY (MODAL) -->
+  <div id="verify-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 hidden flex-col items-center justify-center p-4">
+    <div class="w-full max-w-[1100px] flex flex-col lg:flex-row justify-center items-stretch gap-6 transition-all duration-500">
+      
+      <!-- Execution Terminal -->
+      <div id="exec-terminal" class="glass-card p-6 min-h-[500px] w-full lg:max-w-[500px] font-mono text-sm relative flex flex-col">
+        <div class="absolute top-4 right-4 flex gap-1">
+          <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+          <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+          <div class="w-2 h-2 rounded-full bg-slate-300"></div>
+        </div>
+        <h3 class="font-bold text-slate-800 mb-4 border-b border-slate-100 pb-2">Verification Logs</h3>
+        <div id="exec-lines" class="space-y-4 mt-2 flex-1 overflow-y-auto pr-2">
+          <!-- Populated by JS -->
+        </div>
+        <div id="exec-spinner" class="mt-4 flex gap-1 opacity-0 shrink-0">
+          <div class="w-2 h-2 rounded-full bg-[#7C3AED] animate-bounce" style="animation-delay: 0s"></div>
+          <div class="w-2 h-2 rounded-full bg-[#7C3AED] animate-bounce" style="animation-delay: 0.2s"></div>
+          <div class="w-2 h-2 rounded-full bg-[#7C3AED] animate-bounce" style="animation-delay: 0.4s"></div>
+        </div>
+      </div>
+
+      <!-- Verdict Card (Hidden initially) -->
+      <div id="verdict-card" class="glass-card overflow-hidden hidden opacity-0 translate-x-4 transition-all duration-500 ease-out shadow-2xl w-full lg:max-w-[500px] flex flex-col">
+        <!-- Header -->
+        <div id="vc-header" class="p-8 text-center border-b border-slate-100 bg-white">
+          <div id="vc-icon" class="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 border-[4px]">
+            <span class="material-icons text-4xl font-bold" id="vc-icon-text">check</span>
+          </div>
+          <h2 id="vc-title" class="text-2xl font-black uppercase tracking-widest mb-2">CLEARED FOR DISTRIBUTION</h2>
+          <p id="vc-subtitle" class="text-slate-500 font-medium">This food is SAFE to donate and consume.</p>
+        </div>
+
+        <!-- Body -->
+        <div class="p-8 bg-slate-50">
+          <div class="flex justify-between items-center mb-6">
+            <span id="vc-score" class="text-4xl font-black">TRL 100/100</span>
+            <span id="vc-window" class="text-[#00C896] font-bold bg-[#00C896]/10 px-3 py-1 rounded-lg">Remaining: 4.5h</span>
+          </div>
+          <ul id="vc-checklist" class="space-y-2 text-sm text-slate-600 mb-8 font-medium">
+            <li class="flex items-center gap-2"><span class="text-[#00C896] font-bold">✓</span> WHO danger zone: <span id="vc-who"></span></li>
+            <li class="flex items-center gap-2"><span class="text-[#00C896] font-bold">✓</span> Arrhenius model: within safe threshold</li>
+            <li class="flex items-center gap-2"><span class="text-[#00C896] font-bold">✓</span> FSSAI compliance: passed</li>
+            <li class="flex items-center gap-2"><span class="text-[#00C896] font-bold">✓</span> Bacterial risk (<span id="vc-bac"></span>): controlled</li>
+          </ul>
+
+          <!-- Message Box -->
+          <div id="vc-msg-box" class="border border-[#00C896]/30 bg-[#00C896]/5 rounded-xl p-5 mb-6 relative shadow-inner">
+            <span class="absolute -top-3 left-4 bg-white px-2 text-xs text-[#00C896] font-bold">📨 Message to NGO / Demand Centre</span>
+            <div class="font-mono text-xs text-slate-600 space-y-1">
+              <p>[AUTO-GENERATED AI MESSAGE]</p>
+              <p id="vc-msg-action" class="text-slate-900 font-bold my-2">✅ ACCEPT — Food Verified Safe</p>
+              <p>ZeroHunger Verification ID: <span class="text-slate-900 font-semibold" id="vc-id"></span></p>
+              <p>Food Item: <span class="text-slate-900 font-semibold" id="vc-food"></span></p>
+              <p>TRL Score: <span class="text-slate-900 font-semibold" id="vc-score2"></span></p>
+              <p>Verified at: <span class="text-slate-900 font-semibold" id="vc-time"></span></p>
+              <p>Temperature: <span class="text-slate-900 font-semibold" id="vc-temp"></span>°C</p>
+              <p>Standard: WHO/FSSAI/USDA Compliant</p>
+              <p class="mt-2 text-slate-900 font-medium">Recommendation: <span id="vc-rec"></span></p>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex gap-4">
+            <button id="vc-btn-action" class="flex-1 bg-[#00C896] text-white font-bold py-3 rounded-lg hover:bg-[#00b085] transition shadow-md">✅ Send to NGO</button>
+            <button id="vc-btn-close" class="px-6 bg-slate-200 text-slate-700 font-bold py-3 rounded-lg hover:bg-slate-300 transition">Close</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ─── FOOD DATABASE ─────────────────────────────────────────────
+    // Values derived from USDA FoodKeeper + ICMSF Arrhenius parameters
+    const FOOD_DB = {
+      "Cooked Rice": { Ea: 50000, base_hours: 6, bacteria: "Bacillus cereus", emoji: "🍚", risk: "medium" },
+      "Dal / Lentils": { Ea: 48000, base_hours: 8, bacteria: "Clostridium perfringens", emoji: "🫘", risk: "medium" },
+      "Chicken Curry": { Ea: 55000, base_hours: 4, bacteria: "Salmonella", emoji: "🍗", risk: "high" },
+      "Leafy Salad": { Ea: 45000, base_hours: 3, bacteria: "E. coli O157", emoji: "🥗", risk: "high" },
+      "Paneer Dish": { Ea: 52000, base_hours: 5, bacteria: "Listeria monocytogenes", emoji: "🧀", risk: "medium" },
+      "Bread / Roti": { Ea: 40000, base_hours: 12, bacteria: "Mold / Bacillus", emoji: "🫓", risk: "low" },
+      "Fish Curry": { Ea: 62000, base_hours: 2, bacteria: "Clostridium botulinum", emoji: "🐟", risk: "critical" },
+      "Vegetable Sabzi": { Ea: 46000, base_hours: 6, bacteria: "E. coli", emoji: "🥦", risk: "medium" },
+      "Biryani": { Ea: 53000, base_hours: 4, bacteria: "Bacillus cereus", emoji: "🍛", risk: "high" },
+      "Samosa / Fried": { Ea: 42000, base_hours: 6, bacteria: "Staphylococcus aureus", emoji: "🥟", risk: "low" }
+    };
+
+    // ─── STATE ────────────────────────────────────────────────────
+    let state = {
+      temp: 25,
+      hours: 1.5,
+      storage: 'open',
+      selectedFood: 'Cooked Rice'
+    };
+
+    const R = 8.314; // Universal gas constant J/mol·K
+    
+    // ─── ELEMENTS ─────────────────────────────────────────────────
+    const els = {
+      tempSlider: document.getElementById('temp-slider'),
+      tempVal: document.getElementById('temp-val'),
+      hoursSlider: document.getElementById('hours-slider'),
+      hoursVal: document.getElementById('hours-val'),
+      storageBtns: document.querySelectorAll('.storage-btn'),
+      
+      paramK: document.getElementById('param-k'),
+      paramFactor: document.getElementById('param-factor'),
+      paramEa: document.getElementById('param-ea'),
+      paramKelvin: document.getElementById('param-kelvin'),
+      paramShelf: document.getElementById('param-shelf'),
+      
+      trlRing: document.getElementById('trl-ring'),
+      trlScoreDisplay: document.getElementById('trl-score-display'),
+      trlStatusPill: document.getElementById('trl-status-pill'),
+      remHoursDisplay: document.getElementById('rem-hours-display'),
+      
+      foodList: document.getElementById('food-list'),
+      
+      dangerBarFill: document.getElementById('danger-bar-fill'),
+      dangerText: document.getElementById('danger-text'),
+      dangerWarning: document.getElementById('danger-warning'),
+
+      verifyBtn: document.getElementById('verify-btn'),
+      modal: document.getElementById('verify-modal'),
+      execTerminal: document.getElementById('exec-terminal'),
+      execLines: document.getElementById('exec-lines'),
+      execSpinner: document.getElementById('exec-spinner'),
+      verdictCard: document.getElementById('verdict-card'),
+      btnClose: document.getElementById('vc-btn-close')
+    };
+
+    // ─── CORE CALCULATOR ──────────────────────────────────────────
+    function calculateFoodTRL(foodName, t, h, storeCond) {
+      const food = FOOD_DB[foodName];
+      
+      // Determine effective temp
+      let effectiveTemp = t;
+      if (storeCond === 'refrigerated') effectiveTemp = 4;
+      else if (storeCond === 'covered') effectiveTemp = Math.max(0, t - 2);
+
+      const T_kelvin = effectiveTemp + 273.15;
+      
+      // Arrhenius acceleration
+      // shelf_life = base / e^((Ea/R) * (1/298.15 - 1/T))
+      const exponent = (food.Ea / R) * (1 / 298.15 - 1 / T_kelvin);
+      const factor = Math.exp(exponent);
+      const shelf_life_at_T = food.base_hours / factor;
+      
+      // Decay rate k (proportional to 1/shelf_life)
+      const k = 1 / shelf_life_at_T;
+
+      let trl = Math.max(0, (1 - h / shelf_life_at_T) * 100);
+      let remHours = Math.max(0, shelf_life_at_T - h);
+      
+      // WHO 4-hour rule check
+      let whoTriggered = false;
+      let whoHours = 0;
+      if (effectiveTemp >= 5 && effectiveTemp <= 63) {
+        whoHours = h;
+        if (whoHours >= 4) {
+          whoTriggered = true;
+          trl = 0;
+          remHours = 0;
+        }
+      }
+
+      return {
+        trl: Math.round(trl),
+        factor: factor.toFixed(2),
+        k: k.toFixed(4),
+        shelf_life: shelf_life_at_T.toFixed(1),
+        remHours: remHours.toFixed(1),
+        effectiveTemp,
+        T_kelvin: T_kelvin.toFixed(2),
+        Ea: food.Ea,
+        whoTriggered,
+        whoHours: whoHours.toFixed(1),
+        foodData: food
+      };
+    }
+
+    function getStatus(trl) {
+      if (trl >= 70) return { label: 'SAFE', color: '#00C896', tw: 'bg-[#00C896]/10 text-[#00C896] border-[#00C896]/20' };
+      if (trl >= 45) return { label: 'MODERATE', color: '#F59E0B', tw: 'bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20' };
+      if (trl >= 20) return { label: 'URGENT', color: '#F97316', tw: 'bg-[#F97316]/10 text-[#F97316] border-[#F97316]/20' };
+      if (trl > 0) return { label: 'CRITICAL', color: '#EF4444', tw: 'bg-[#EF4444]/10 text-[#EF4444] border-[#EF4444]/20' };
+      return { label: 'DISCARD', color: '#EF4444', tw: 'bg-[#EF4444]/10 text-[#EF4444] border-[#EF4444]/20' };
+    }
+
+    // ─── UI UPDATER ───────────────────────────────────────────────
+    function updateUI() {
+      // 1. Calculate active
+      const res = calculateFoodTRL(state.selectedFood, state.temp, state.hours, state.storage);
+      
+      // 2. Update Left Panel text
+      els.tempVal.innerText = `${state.temp}°C`;
+      els.hoursVal.innerText = `${state.hours}h`;
+      
+      // Update Temp label color
+      if (state.temp < 10) els.tempVal.style.color = '#3B82F6';
+      else if (state.temp <= 25) els.tempVal.style.color = '#00C896';
+      else if (state.temp <= 35) els.tempVal.style.color = '#F59E0B';
+      else els.tempVal.style.color = '#EF4444';
+
+      els.paramK.innerText = res.k;
+      els.paramFactor.innerText = `${res.factor}x`;
+      els.paramEa.innerText = res.Ea;
+      els.paramKelvin.innerText = `${res.T_kelvin}K`;
+      els.paramShelf.innerText = `${res.shelf_life}h`;
+
+      // 3. Update Center Ring
+      const status = getStatus(res.trl);
+      els.trlScoreDisplay.innerText = res.trl;
+      els.trlScoreDisplay.style.color = status.color;
+      els.trlStatusPill.innerText = status.label;
+      els.trlStatusPill.className = `mt-4 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider border ${status.tw}`;
+      
+      const circumference = 283; // 2 * pi * 45
+      const offset = circumference - (res.trl / 100) * circumference;
+      els.trlRing.style.strokeDashoffset = offset;
+      els.trlRing.style.stroke = status.color;
+      
+      els.remHoursDisplay.innerText = `${res.remHours}h`;
+      els.remHoursDisplay.style.color = status.color;
+
+      // 4. Update Danger Zone Bar
+      let dangerPct = (res.whoHours / 4) * 100;
+      if (dangerPct > 100) dangerPct = 100;
+      els.dangerBarFill.style.width = `${dangerPct}%`;
+      els.dangerText.innerText = `${res.whoHours}h of 4h`;
+      
+      if (res.whoHours >= 4) {
+        els.dangerBarFill.style.backgroundColor = '#EF4444';
+        els.dangerText.style.color = '#EF4444';
+        els.dangerWarning.classList.remove('hidden');
+      } else if (res.whoHours >= 2) {
+        els.dangerBarFill.style.backgroundColor = '#F59E0B';
+        els.dangerText.style.color = '#0f172a';
+        els.dangerWarning.classList.add('hidden');
+      } else {
+        els.dangerBarFill.style.backgroundColor = '#00C896';
+        els.dangerText.style.color = '#0f172a';
+        els.dangerWarning.classList.add('hidden');
+      }
+
+      // 5. Render Food List
+      renderFoodList();
+    }
+
+    function renderFoodList() {
+      els.foodList.innerHTML = '';
+      for (const [name, data] of Object.entries(FOOD_DB)) {
+        const res = calculateFoodTRL(name, state.temp, state.hours, state.storage);
+        const status = getStatus(res.trl);
+        const isSelected = name === state.selectedFood;
+        
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-xl border cursor-pointer transition flex items-center justify-between ${isSelected ? 'bg-purple-50 border-purple-400 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'}`;
+        div.onclick = () => {
+          state.selectedFood = name;
+          updateUI();
+        };
+
+        div.innerHTML = `
+          <div>
+            <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">${data.emoji} ${name}</h4>
+            <p class="text-[10px] text-slate-500 mt-1 font-medium">Ea: ${data.Ea/1000} kJ/mol · ${data.base_hours}h base</p>
+          </div>
+          <div class="flex flex-col items-end gap-1">
+            <span class="text-lg font-black" style="color: ${status.color}">${res.trl}</span>
+            <span class="text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border" style="background: ${status.color}15; color: ${status.color}; border-color: ${status.color}30">${status.label}</span>
+          </div>
+        `;
+        els.foodList.appendChild(div);
+      }
+    }
+
+    // ─── EVENT LISTENERS ──────────────────────────────────────────
+    els.tempSlider.oninput = (e) => { state.temp = parseFloat(e.target.value); updateUI(); };
+    els.hoursSlider.oninput = (e) => { state.hours = parseFloat(e.target.value); updateUI(); };
+    
+    els.storageBtns.forEach(btn => {
+      btn.onclick = (e) => {
+        state.storage = e.target.dataset.val;
+        els.storageBtns.forEach(b => {
+          b.classList.remove('bg-[#7C3AED]', 'text-white', 'shadow-sm');
+          b.classList.add('text-slate-500');
+        });
+        e.target.classList.remove('text-slate-500');
+        e.target.classList.add('bg-[#7C3AED]', 'text-white', 'shadow-sm');
+        updateUI();
+      };
+    });
+
+    // ─── MODAL & ANIMATION LOGIC ──────────────────────────────────
+    const delay = ms => new Promise(r => setTimeout(r, ms));
+
+    els.verifyBtn.onclick = async () => {
+      // Setup Modal
+      els.modal.classList.remove('hidden');
+      els.modal.classList.add('flex');
+      els.execLines.innerHTML = '';
+      els.verdictCard.classList.add('hidden', 'opacity-0', 'translate-y-4');
+      els.verdictCard.classList.remove('fade-up');
+      els.execSpinner.style.opacity = '1';
+
+      const res = calculateFoodTRL(state.selectedFood, state.temp, state.hours, state.storage);
+      
+      const steps = [
+        { t: 400, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-[#00C896] font-semibold">Reading ambient temperature:</span> <span class="text-slate-700">${state.temp}°C...</span>
+            </div>
+          </div>` 
+        },
+        { t: 800, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-[#7C3AED] font-semibold">Loading Arrhenius parameters for ${state.selectedFood}...</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">Ea = ${res.Ea} J/mol · Base shelf life = ${res.foodData.base_hours}h</div>
+            </div>
+          </div>`
+        },
+        { t: 1200, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-[#3B82F6] font-semibold">Computing decay rate k = A × e^(-Ea/RT)...</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">T = ${res.T_kelvin}K · R = 8.314 J/mol·K</div>
+            </div>
+          </div>`
+        },
+        { t: 1600, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-[#F59E0B] font-semibold">Calculating shelf life at ${res.effectiveTemp}°C...</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">Acceleration factor: ${res.factor}× vs reference 25°C</div>
+            </div>
+          </div>`
+        },
+        { t: 2000, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-slate-700 font-semibold">Cross-referencing ${res.foodData.bacteria} growth curves...</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">Source: ComBase Predictive Microbiology Database</div>
+            </div>
+          </div>`
+        },
+        { t: 2400, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-[#EF4444] font-semibold">Applying WHO 4-hour danger zone protocol...</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">Time in danger zone: ${res.whoHours}h of 4h limit</div>
+            </div>
+          </div>`
+        },
+        { t: 2800, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-[#10B981] font-semibold">Validating against FSSAI FSS ACT 2006...</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">Indian food safety standards compliance check</div>
+            </div>
+          </div>`
+        },
+        { t: 3200, m: `
+          <div class="flex items-start gap-3">
+            <span class="text-slate-400 shrink-0 mt-0.5 font-bold">❯</span>
+            <div>
+              <span class="text-slate-900 font-bold">Final TRL computation: ${res.trl}/100</span>
+              <div class="text-slate-500 text-xs mt-1 font-mono">Verifying against 3 independent standards...</div>
+            </div>
+          </div>`
+        }
+      ];
+
+      // Play Execution Steps
+      let currentTime = 0;
+      for (const step of steps) {
+        await delay(step.t - currentTime);
+        currentTime = step.t;
+        
+        const div = document.createElement('div');
+        div.className = 'typewriter-line text-slate-700';
+        div.innerHTML = step.m;
+        els.execLines.appendChild(div);
+        
+        // Trigger reflow
+        void div.offsetWidth;
+        div.classList.add('visible');
+        
+        // Auto scroll
+        els.execTerminal.scrollTop = els.execTerminal.scrollHeight;
+      }
+
+      await delay(300);
+      els.execSpinner.style.opacity = '0';
+      
+      // Setup Verdict Card based on score
+      setupVerdictCard(res);
+      
+      els.verdictCard.classList.remove('hidden');
+      void els.verdictCard.offsetWidth; // reflow
+      els.verdictCard.classList.add('fade-up');
+    };
+
+    els.btnClose.onclick = () => {
+      els.modal.classList.add('hidden');
+      els.modal.classList.remove('flex');
+    };
+
+    function setupVerdictCard(res) {
+      const v = {
+        icon: document.getElementById('vc-icon'),
+        iconText: document.getElementById('vc-icon-text'),
+        title: document.getElementById('vc-title'),
+        sub: document.getElementById('vc-subtitle'),
+        score: document.getElementById('vc-score'),
+        window: document.getElementById('vc-window'),
+        who: document.getElementById('vc-who'),
+        bac: document.getElementById('vc-bac'),
+        msgBox: document.getElementById('vc-msg-box'),
+        msgAction: document.getElementById('vc-msg-action'),
+        rec: document.getElementById('vc-rec'),
+        btn: document.getElementById('vc-btn-action')
+      };
+
+      v.who.innerText = `${res.whoHours}h of 4h limit used`;
+      v.bac.innerText = res.foodData.bacteria;
+      
+      document.getElementById('vc-id').innerText = `ZH-${Math.floor(100000 + Math.random() * 900000)}`;
+      document.getElementById('vc-food').innerText = state.selectedFood;
+      document.getElementById('vc-score2').innerText = `${res.trl}/100`;
+      
+      const now = new Date();
+      document.getElementById('vc-time').innerText = now.toLocaleString();
+      document.getElementById('vc-temp').innerText = state.temp;
+
+      // SAFE
+      if (res.trl >= 70) {
+        v.icon.className = 'w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 border-[4px] border-[#00C896] bg-[#00C896]/10 text-[#00C896]';
+        v.iconText.innerText = 'check';
+        v.title.innerText = 'CLEARED FOR DISTRIBUTION';
+        v.title.style.color = '#00C896';
+        v.sub.innerText = 'This food is SAFE to donate and consume.';
+        v.score.innerText = `TRL ${res.trl}/100`;
+        v.score.style.color = '#00C896';
+        v.window.innerText = `Remaining: ${res.remHours}h`;
+        v.window.className = 'text-[#00C896] font-bold bg-[#00C896]/10 px-3 py-1 rounded-lg border border-[#00C896]/30';
+        
+        v.msgBox.className = 'border border-[#00C896]/30 bg-[#00C896]/5 rounded-xl p-5 mb-6 relative shadow-inner';
+        v.msgBox.querySelector('span').style.color = '#00C896';
+        v.msgAction.innerText = '✅ ACCEPT — Food Verified Safe';
+        v.msgAction.style.color = '#00C896';
+        v.rec.innerText = `Accept immediately and serve within ${res.remHours} hours.`;
+        
+        v.btn.innerText = '✅ Send to NGO';
+        v.btn.className = 'flex-1 bg-[#00C896] text-white font-bold py-3 rounded-lg hover:bg-[#00b085] transition shadow-md';
+      } 
+      // MODERATE
+      else if (res.trl >= 45) {
+        v.icon.className = 'w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 border-[4px] border-[#F59E0B] bg-[#F59E0B]/10 text-[#F59E0B]';
+        v.iconText.innerText = 'warning';
+        v.title.innerText = 'CONDITIONAL APPROVAL';
+        v.title.style.color = '#F59E0B';
+        v.sub.innerText = `Expedited pickup required within ${res.remHours}h`;
+        v.score.innerText = `TRL ${res.trl}/100`;
+        v.score.style.color = '#F59E0B';
+        v.window.innerText = `Remaining: ${res.remHours}h`;
+        v.window.className = 'text-[#F59E0B] font-bold bg-[#F59E0B]/10 px-3 py-1 rounded-lg border border-[#F59E0B]/30';
+        
+        v.msgBox.className = 'border border-[#F59E0B]/30 bg-[#F59E0B]/5 rounded-xl p-5 mb-6 relative shadow-inner';
+        v.msgBox.querySelector('span').style.color = '#F59E0B';
+        v.msgAction.innerText = '⚠️ CONDITIONAL — Urgent Pickup Required';
+        v.msgAction.style.color = '#F59E0B';
+        v.rec.innerText = `Accept only if pickup is expedited. Serve within ${res.remHours} hours.`;
+        
+        v.btn.innerText = '⚠️ Send to NGO - Urgent';
+        v.btn.className = 'flex-1 bg-[#F59E0B] text-white font-bold py-3 rounded-lg hover:bg-[#d97706] transition shadow-md';
+      }
+      // URGENT
+      else if (res.trl >= 20) {
+        v.icon.className = 'w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 border-[4px] border-[#F97316] bg-[#F97316]/10 text-[#F97316]';
+        v.iconText.innerText = 'error';
+        v.title.innerText = 'HIGH PRIORITY PICKUP REQUIRED';
+        v.title.style.color = '#F97316';
+        v.sub.innerText = 'Food safety window closing.';
+        v.score.innerText = `TRL ${res.trl}/100`;
+        v.score.style.color = '#F97316';
+        v.window.innerText = `Remaining: ${res.remHours}h`;
+        v.window.className = 'text-[#F97316] font-bold bg-[#F97316]/10 px-3 py-1 rounded-lg border border-[#F97316]/30';
+        
+        v.msgBox.className = 'border border-[#F97316]/30 bg-[#F97316]/5 rounded-xl p-5 mb-6 relative shadow-inner';
+        v.msgBox.querySelector('span').style.color = '#F97316';
+        v.msgAction.innerText = '🚨 URGENT — Window Closing';
+        v.msgAction.style.color = '#F97316';
+        v.rec.innerText = `Accept ONLY if pickup can be completed in under 30 minutes.`;
+        
+        v.btn.innerText = '🚨 Send to NGO - Critical';
+        v.btn.className = 'flex-1 bg-[#F97316] text-white font-bold py-3 rounded-lg hover:bg-[#ea580c] transition shadow-md';
+      }
+      // DISCARD (WHO rule or TRL < 20)
+      else {
+        v.icon.className = 'w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-4 border-[4px] border-[#EF4444] bg-[#EF4444]/10 text-[#EF4444]';
+        v.iconText.innerText = 'close';
+        v.title.innerText = 'DO NOT DISTRIBUTE';
+        v.title.style.color = '#EF4444';
+        v.sub.innerText = 'This food has exceeded safe consumption thresholds.';
+        v.score.innerText = `TRL ${res.trl}/100`;
+        v.score.style.color = '#EF4444';
+        v.window.innerText = `Remaining: 0h`;
+        v.window.className = 'text-[#EF4444] font-bold bg-[#EF4444]/10 px-3 py-1 rounded-lg border border-[#EF4444]/30';
+        
+        // Checklist update for fail
+        if (res.whoTriggered) {
+          v.who.innerText = `${res.whoHours}h of 4h limit EXCEEDED`;
+          v.who.parentElement.innerHTML = `<span class="text-[#EF4444] font-bold">❌</span> WHO danger zone: <span class="text-[#EF4444] font-bold">${res.whoHours}h of 4h limit EXCEEDED</span>`;
+        } else {
+          v.bac.parentElement.innerHTML = `<span class="text-[#EF4444] font-bold">❌</span> Bacterial risk (${res.foodData.bacteria}): <span class="text-[#EF4444] font-bold">UNSAFE LEVELS</span>`;
+        }
+
+        v.msgBox.className = 'border border-[#EF4444]/30 bg-[#EF4444]/5 rounded-xl p-5 mb-6 relative shadow-inner';
+        v.msgBox.querySelector('span').style.color = '#EF4444';
+        v.msgAction.innerText = '❌ REJECT — Food Unsafe';
+        v.msgAction.style.color = '#EF4444';
+        
+        const reason = res.whoTriggered ? "WHO 4-hour danger zone rule exceeded." : "TRL score fell below safe threshold.";
+        v.rec.innerHTML = `<br/>This batch has been flagged as unsafe by the ZeroHunger TRL Engine.<br/>Reason: ${reason}<br/>Action: Do not accept. Advise donor to discard safely.`;
+        
+        v.btn.innerText = '❌ Notify NGO - Reject';
+        v.btn.className = 'flex-1 bg-[#EF4444] text-white font-bold py-3 rounded-lg hover:bg-[#dc2626] transition shadow-md';
+      }
+
+      // Add click handler to actually send the request
+      v.btn.onclick = async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('orderId');
+        
+        if (orderId) {
+          try {
+            // Safe/Moderate = Accept, Critical/Discard = Decline
+            const action = res.trl >= 45 ? 'accept' : 'decline';
+            const originalText = v.btn.innerText;
+            
+            v.btn.innerText = 'Processing...';
+            const response = await fetch(`http://localhost:5000/api/orders/${orderId}/ngo-status`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ action })
+            });
+            
+            if (response.ok) {
+              v.btn.innerText = '✅ Successfully Updated NGO Dashboard!';
+              // Automatically close window after success
+              setTimeout(() => { window.close(); }, 2000);
+            } else {
+              v.btn.innerText = '❌ Backend Error';
+              setTimeout(() => { v.btn.innerText = originalText; }, 2000);
+            }
+          } catch (err) {
+            console.error('API Error:', err);
+            const originalText = v.btn.innerText;
+            v.btn.innerText = '❌ Network Error';
+            setTimeout(() => { v.btn.innerText = originalText; }, 2000);
+          }
+        } else {
+          // Demo mode, no orderId provided in URL
+          const originalText = v.btn.innerText;
+          v.btn.innerText = '✅ Simulation Complete (No Order ID provided)';
+          setTimeout(() => { v.btn.innerText = originalText; }, 2000);
+        }
+      };
+    }
+
+    // Initialize
+    updateUI();
+  </script>
+</body>
+</html>

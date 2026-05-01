@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Volunteer Registration - ZeroHunger</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#dce2f7",
+                    "outline-variant": "#bec9c9",
+                    "surface-dim": "#d3daef",
+                    "on-secondary-container": "#684000",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "on-tertiary-fixed": "#002113",
+                    "secondary": "#855300",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-highest": "#dce2f7",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-container": "#e9edff",
+                    "secondary-fixed": "#ffddb8",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f1f3ff",
+                    "on-primary": "#ffffff",
+                    "tertiary-fixed": "#6ffbbe",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#2a1700",
+                    "primary": "#00595c",
+                    "inverse-primary": "#81d4d8",
+                    "primary-fixed": "#9df0f4",
+                    "on-surface-variant": "#3e4949",
+                    "on-surface": "#141b2b",
+                    "tertiary": "#005c3e",
+                    "tertiary-container": "#007751",
+                    "on-background": "#141b2b",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "on-primary-fixed-variant": "#004f52",
+                    "on-secondary": "#ffffff",
+                    "outline": "#6e7979",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "primary-fixed-dim": "#81d4d8",
+                    "inverse-surface": "#293040",
+                    "background": "#f9f9ff",
+                    "on-primary-container": "#a2f5f9",
+                    "inverse-on-surface": "#edf0ff",
+                    "surface": "#f9f9ff",
+                    "surface-tint": "#00696d",
+                    "primary-container": "#0d7377",
+                    "surface-bright": "#f9f9ff",
+                    "surface-container-high": "#e1e8fd",
+                    "on-tertiary-container": "#83ffc6",
+                    "secondary-container": "#fea619",
+                    "on-primary-fixed": "#002021"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "gutter": "24px",
+                    "max-container": "1440px",
+                    "stack-lg": "32px",
+                    "margin-page": "48px",
+                    "stack-sm": "8px",
+                    "sidebar-width": "240px"
+            },
+            "fontFamily": {
+                    "h1": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "h3": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "h2": ["Inter"]
+            },
+            "fontSize": {
+                    "h1": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                    "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                    "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                    "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                    "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "h2": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased min-h-screen flex">
+<!-- Note: Global navigation (SideNavBar/TopNavBar) is intentionally suppressed for this transactional sign-up screen to maximize focus on the conversion flow. -->
+<!-- Left Panel: Brand & Imagery -->
+<div class="hidden lg:flex w-1/2 relative flex-col justify-between p-margin-page bg-primary overflow-hidden">
+<!-- Background Image with overlay -->
+<img alt="" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-overlay" data-alt="A dynamic, high-quality photograph of diverse volunteers organizing fresh produce in a modern, well-lit warehouse setting. The lighting is bright and optimistic, reflecting a 'Premium SaaS for Social Good' aesthetic. The overall color grading leans towards crisp whites and warm natural tones, subtly harmonizing with a minimalist corporate light-mode theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNIjo_lWFByM0N7mQVJHlMU8LPfcGCi8zC3-a7xfJca6LAiqKzhRjeBvAGNrW-Gvd6_ZOuulDyZJ62tiffer3E0RpqC8gY7NrvLUkVuLpecCxUSQHV0z1poWau-tFd3Qje24053ltw7u1yF_5qe0VRYlDMhGmssbXhsjrVG0mqRHphdI4su9mVZIh6IgdxP3h0ZxseAKwm7DHz5LnvrkQ5Oo3TxwZdWdgB2ZBO64qLiqlc-jteK8Q_x7krn_8elkqowqS6SQbuvr12"/>
+<div class="absolute inset-0 bg-primary/40 mix-blend-multiply"></div>
+<!-- Content overlay -->
+<div class="relative z-10 flex flex-col h-full justify-between">
+<div>
+<h1 class="font-display text-display text-on-primary">ZeroHunger</h1>
+<p class="font-body-lg text-body-lg text-on-primary/80 mt-2">Food Surplus Platform</p>
+</div>
+<div class="max-w-md">
+<p class="font-h2 text-h2 text-on-primary mb-6">"Redistributing hope, one delivery at a time."</p>
+<div class="flex items-center gap-4">
+<div class="flex -space-x-4">
+<img alt="Volunteer" class="w-12 h-12 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a smiling volunteer coordinator with a warm expression, well-lit in a modern setting, conveying trust and community within a minimalist corporate context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs6nGpteIZs4s7VWUq6fMZpUYyv6XbCwJ0EnJA-4M8RzT3MPlFXLjhQY8KoriHD0EKAiBdKsrSsAi58K326yjOQjO5bDmvf4ooAuLDhVsVoj3Udpf99wRWfgknB8Tg9pU_nCGzrALdMyYO5-p970bMYL-Hpqb94b1k_GJBmjc-RSgN_z4v6It3_JPkv1P07bha46upvbF5jo2wD_L8o8OO8aeDKiFYUYQtqXNdSlENfXtNghAkwwpybskaLvkD68u2nb5CWK19UAG5"/>
+<img alt="Volunteer" class="w-12 h-12 rounded-full border-2 border-primary-container object-cover" data-alt="A portrait of a confident male volunteer in casual attire, looking directly at the camera with a bright background, representing the approachable and human side of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLb3E_4AL6RmzQt9WTD-OzH0_eNp9Cf601WArcRHREYwZjIJ0MKAnM8DZTeopr2f4vJxTwMkXpeizDcU_sj8tB1S9Eo-snS017ZEXWlkJRy0VD1zLygSl6Gwk8ie_PzJKcIrp2Zt3cDxfpGcRPrQMwXAM9dkcij-GXzAOaPd0p2WYfANbVNCusyMataSrCNfTP7LwMHlEq6NeyaUqjw-HYg30IhnURnMJ37ywoRRPyVcESdmmhX_nt7Iml51obUtaG9j1zvi5OfERA"/>
+<div class="w-12 h-12 rounded-full border-2 border-primary-container bg-surface-container flex items-center justify-center font-label-md text-label-md text-primary-container">
+                            +2k
+                        </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary/90">Join active volunteers in your city.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Registration Form -->
+<div class="w-full lg:w-1/2 flex flex-col overflow-y-auto bg-surface-container-lowest">
+<div class="flex flex-col max-w-xl w-full mx-auto px-8 sm:px-12 py-12 lg:py-20 h-full">
+<!-- Mobile Logo (Hidden on Desktop) -->
+<div class="lg:hidden mb-8">
+<h1 class="font-h2 text-h2 text-primary-container font-bold">ZeroHunger</h1>
+</div>
+<!-- Header & Tabs -->
+<div class="mb-10">
+<h2 class="font-h1 text-h1 text-on-surface mb-6">Create an account</h2>
+<!-- Registration Type Tabs -->
+<div class="flex gap-8 border-b border-outline-variant mb-8">
+<button class="font-label-md text-label-md text-primary-container border-b-2 border-primary-container pb-3 relative top-[1px]">
+                        Volunteer
+                    </button>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface pb-3 transition-colors">
+                        Donor
+                    </button>
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface pb-3 transition-colors">
+                        NGO Partner
+                    </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign up to help transport and redistribute surplus food to those in need.</p>
+</div>
+<!-- Form -->
+<form class="space-y-stack-md flex-grow">
+<!-- Personal Info Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider" for="fullName">Full Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="fullName" placeholder="Jane Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider" for="email">Email Address</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="email" placeholder="jane@example.com" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider" for="phone">Phone Number</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+<div class="h-px w-full bg-outline-variant/30 my-6"></div>
+<!-- Location & Logistics Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider" for="city">City</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="city" placeholder="e.g. Bangalore" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider" for="area">Area / Locality</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="area" placeholder="e.g. Koramangala" type="text"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2 mt-2">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider" for="vehicle">Vehicle Type</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="vehicle">
+<option disabled="" selected="" value="">Select your transport method</option>
+<option value="bicycle">Bicycle</option>
+<option value="two-wheeler">Two-Wheeler (Scooter/Bike)</option>
+<option value="four-wheeler">Four-Wheeler (Car/Van)</option>
+<option value="none">None (Walking/Public Transit)</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Availability Section -->
+<div class="flex flex-col gap-3 mt-6">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">General Availability</label>
+<div class="flex flex-wrap gap-3">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container transition-all" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Mornings</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container transition-all" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Afternoons</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container transition-all" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Evenings</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container transition-all" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">Weekends</span>
+</label>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-6 mt-4 border-t border-outline-variant/30">
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-4 rounded-lg hover:bg-surface-tint transition-colors shadow-[0_4px_14px_rgba(13,115,119,0.2)] active:scale-[0.99]" type="submit">
+                        Join the Movement
+                    </button>
+<div class="flex items-center gap-4 my-6">
+<div class="h-px flex-1 bg-outline-variant/50"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">or</span>
+<div class="h-px flex-1 bg-outline-variant/50"></div>
+</div>
+<button class="w-full bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md text-label-md py-4 rounded-lg flex items-center justify-center gap-3 hover:bg-surface-container-low transition-colors" type="button">
+<svg class="w-5 h-5" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.81 15.7 17.6V20.35H19.26C21.34 18.43 22.56 15.6 22.56 12.25Z" fill="#4285F4"></path>
+<path d="M12 23C14.97 23 17.46 22.02 19.26 20.35L15.7 17.6C14.73 18.25 13.48 18.65 12 18.65C9.13 18.65 6.69 16.71 5.81 14.11H2.13V16.96C3.95 20.58 7.68 23 12 23Z" fill="#34A853"></path>
+<path d="M5.81 14.11C5.58 13.45 5.45 12.74 5.45 12C5.45 11.26 5.58 10.55 5.81 9.89V7.04H2.13C1.38 8.53 0.95 10.22 0.95 12C0.95 13.78 1.38 15.47 2.13 16.96L5.81 14.11Z" fill="#FBBC05"></path>
+<path d="M12 5.35C13.62 5.35 15.07 5.91 16.21 6.99L19.34 3.86C17.46 2.11 14.97 1 12 1C7.68 1 3.95 3.42 2.13 7.04L5.81 9.89C6.69 7.29 9.13 5.35 12 5.35Z" fill="#EA4335"></path>
+</svg>
+                        Continue with Google
+                    </button>
+</div>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant mt-8">
+                    Already have an account? <a class="text-primary-container font-medium hover:underline" href="Login.html">Log in</a>
+</p>
+</form>
+</div>
+</div>
+
+<script type="module" src="./src/js/auth.js"></script>
+<script type="module" src="./src/js/main.js"></script>
+</body></html>

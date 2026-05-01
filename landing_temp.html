@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZeroHunger - Feed More. Waste Less.</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#002113",
+                        "secondary": "#855300",
+                        "inverse-on-surface": "#edf0ff",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#9df0f4",
+                        "on-tertiary-container": "#83ffc6",
+                        "surface-container": "#e9edff",
+                        "primary-container": "#0d7377",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#dce2f7",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "outline": "#6e7979",
+                        "surface-variant": "#dce2f7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#a2f5f9",
+                        "background": "#f9f9ff",
+                        "primary": "#00595c",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-background": "#141b2b",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "inverse-surface": "#293040",
+                        "inverse-primary": "#81d4d8",
+                        "surface": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e1e8fd",
+                        "on-secondary-container": "#684000",
+                        "on-surface": "#141b2b",
+                        "secondary-container": "#fea619",
+                        "secondary-fixed": "#ffddb8",
+                        "outline-variant": "#bec9c9",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "tertiary": "#005c3e",
+                        "tertiary-container": "#007751",
+                        "surface-tint": "#00696d",
+                        "surface-bright": "#f9f9ff",
+                        "primary-fixed-dim": "#81d4d8",
+                        "on-surface-variant": "#3e4949",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#002021",
+                        "surface-dim": "#d3daef",
+                        "on-primary-fixed-variant": "#004f52",
+                        "on-tertiary-fixed-variant": "#005236"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "max-container": "1440px",
+                        "sidebar-width": "240px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "margin-page": "48px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Inter"],
+                        "label-md": ["Inter"],
+                        "h1": ["Inter"],
+                        "h2": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "h1": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "h2": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .shadow-ambient {
+            box-shadow: 24px 0 48px -12px rgba(13, 115, 119, 0.08);
+        }
+        .shadow-ambient-lg {
+            box-shadow: 0 24px 48px -12px rgba(13, 115, 119, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-[#F8F6F0] text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- Simple Top Nav for Landing Page -->
+<header class="h-20 w-full sticky top-0 z-40 bg-[#F8F6F0]/80 backdrop-blur-md border-b border-slate-200/50">
+<div class="max-w-[1440px] mx-auto px-margin-page h-full flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-xl font-black text-slate-900 tracking-tight">ZeroHunger</span>
+</div>
+<div class="flex items-center">
+<button class="bg-primary-container text-on-primary rounded-[10px] px-6 py-2.5 font-label-md font-semibold hover:bg-primary transition-colors">
+                    Sign In
+                </button>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-margin-page py-stack-lg">
+<!-- Hero Section -->
+<section class="flex flex-col lg:flex-row items-center justify-between gap-gutter pt-12 pb-24 min-h-[716px] relative overflow-hidden"><div class="absolute inset-0 z-0 pointer-events-none">
+<img alt="Diverse people collaborating in a clean food distribution setting" class="w-full h-full object-cover opacity-40 filter grayscale-[10%] sepia-[5%] brightness-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-LTGG571lJu2-7fNPr2CmrhdJymRmdf6U4jUsLH53BVcOFhlWVZ-FY7epfAwJ-giwSK5jBEJE4vHPU723oZuhnL5E7XdwvvD9PzGKTIvdMmdsSu0GX-iM4ggPupdfXuhdqNQKC1Vt-RGHx9F5w0GTEG3eRhctuBUtiNG86oRbNgs0k0JsNdnCqjRcZQPMtFyS9_ESBzWpwBP7PRR6szR0b8wrLFJ8eetQT42kuS_QCuaXcOXX67-algGlfaoWRFsYSF6oadIWVyzc"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#F8F6F0] via-[#F8F6F0]/85 to-[#0D7377]/10"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#F8F6F0] via-transparent to-[#F8F6F0]/40"></div>
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-container/10 to-transparent"></div>
+</div>
+<!-- Left Half: Content -->
+<div class="w-full lg:w-1/2 flex flex-col gap-stack-lg z-10">
+<div class="flex flex-col gap-stack-md">
+<h1 class="font-display text-display text-slate-900">Feed More.<br/>Waste Less.</h1>
+<p class="font-body-lg text-body-lg text-slate-600 max-w-xl">
+                        Connect surplus food to people who need it — in minutes, not hours. A logistics platform designed for impact.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+<button class="bg-primary-container text-on-primary rounded-[10px] px-8 py-4 font-label-md font-semibold shadow-ambient hover:-translate-y-0.5 transition-transform flex items-center gap-2">
+                        Join as Restaurant
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<button class="bg-secondary-container text-on-secondary-container rounded-[10px] px-8 py-4 font-label-md font-semibold shadow-ambient hover:-translate-y-0.5 transition-transform flex items-center gap-2">
+                        Join as NGO
+                        <span class="material-symbols-outlined text-sm">favorite</span>
+</button>
+</div>
+<div class="mt-8 flex items-center gap-4 text-slate-500 font-label-sm text-label-sm uppercase tracking-widest border-t border-slate-200 pt-6">
+<span>142 NGOs</span>
+<span class="text-slate-300">•</span>
+<span>890 Restaurants</span>
+<span class="text-slate-300">•</span>
+<span>48,000 Meals Delivered</span>
+</div>
+</div>
+<!-- Right Half: Visual Mockup -->
+<div class="w-full lg:w-1/2 flex justify-end relative mt-12 lg:mt-0">
+<!-- Abstract Dashboard Preview -->
+<div class="bg-surface-container-lowest rounded-[20px] shadow-ambient-lg p-6 w-full max-w-md border border-slate-100 transform lg:rotate-2 hover:rotate-0 transition-transform duration-500">
+<div class="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-slate-900">Spice Symphony</h3>
+<p class="font-label-sm text-label-sm text-slate-500">Surplus Listed • 2 mins ago</p>
+</div>
+</div>
+<span class="bg-secondary-container/20 text-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">High Priority</span>
+</div>
+<div class="space-y-4 mb-6">
+<div class="bg-slate-50 rounded-[10px] p-4 border border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">restaurant</span>
+<span class="font-body-md text-body-md text-slate-700">45 Servings Rice &amp; Curry</span>
+</div>
+<span class="font-label-md text-label-md text-slate-900 font-semibold">12:30 PM</span>
+</div>
+<div class="bg-slate-50 rounded-[10px] p-4 border border-slate-100 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">bakery_dining</span>
+<span class="font-body-md text-body-md text-slate-700">20 Loaves Bread</span>
+</div>
+<span class="font-label-md text-label-md text-slate-900 font-semibold">01:15 PM</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-1 bg-surface-container-low h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container w-3/4 h-full rounded-full"></div>
+</div>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">Dispatching</span>
+</div>
+</div>
+<!-- Decorative elements -->
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-primary-container/5 rounded-full blur-3xl z-[-1]"></div>
+<div class="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary-container/10 rounded-full blur-3xl z-[-1]"></div>
+</div>
+</section>
+<!-- Feature Highlight Cards -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 pb-24">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-[20px] p-8 shadow-ambient border border-slate-100 hover:border-slate-200 transition-colors flex flex-col gap-4">
+<div class="w-12 h-12 rounded-[10px] bg-primary-container/10 flex items-center justify-center text-primary-container mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">science</span>
+</div>
+<h3 class="font-h3 text-h3 text-slate-900">Expiry DNA Scoring</h3>
+<p class="font-body-sm text-body-sm text-slate-600">
+                    Real-time food viability assessment — smarter than printed dates to ensure safety and minimize waste.
+                </p>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-[20px] p-8 shadow-ambient border border-slate-100 hover:border-slate-200 transition-colors flex flex-col gap-4 relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+<div class="w-12 h-12 rounded-[10px] bg-secondary-container/10 flex items-center justify-center text-secondary-container mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">my_location</span>
+</div>
+<h3 class="font-h3 text-h3 text-slate-900">Zone-Based Dispatch</h3>
+<p class="font-body-sm text-body-sm text-slate-600">
+                    Targeted alerts reach the right NGO in under 60 seconds, optimizing logistics for maximum freshness.
+                </p>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-[20px] p-8 shadow-ambient border border-slate-100 hover:border-slate-200 transition-colors flex flex-col gap-4">
+<div class="w-12 h-12 rounded-[10px] bg-tertiary-container/10 flex items-center justify-center text-tertiary-container mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<h3 class="font-h3 text-h3 text-slate-900">Micro-Surplus Clusters</h3>
+<p class="font-body-sm text-body-sm text-slate-600">
+                    Even 8 leftover rotis count — we bundle them into full meal runs to maximize impact across the city.
+                </p>
+</div>
+</section>
+</main>
+</body></html>

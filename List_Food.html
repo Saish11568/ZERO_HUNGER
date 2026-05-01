@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZeroHunger - List Food</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-tertiary": "#ffffff",
+                            "on-secondary-fixed-variant": "#653e00",
+                            "outline-variant": "#bec9c9",
+                            "inverse-surface": "#293040",
+                            "primary": "#00595c",
+                            "surface-container-highest": "#dce2f7",
+                            "surface": "#f9f9ff",
+                            "on-surface-variant": "#3e4949",
+                            "on-error": "#ffffff",
+                            "error-container": "#ffdad6",
+                            "surface-container": "#e9edff",
+                            "primary-fixed": "#9df0f4",
+                            "on-secondary-fixed": "#2a1700",
+                            "tertiary-fixed-dim": "#4edea3",
+                            "primary-container": "#0d7377",
+                            "on-background": "#141b2b",
+                            "inverse-on-surface": "#edf0ff",
+                            "on-primary-fixed": "#002021",
+                            "on-primary-container": "#a2f5f9",
+                            "on-tertiary-fixed-variant": "#005236",
+                            "inverse-primary": "#81d4d8",
+                            "secondary-fixed-dim": "#ffb95f",
+                            "surface-tint": "#00696d",
+                            "primary-fixed-dim": "#81d4d8",
+                            "surface-container-low": "#f1f3ff",
+                            "on-primary": "#ffffff",
+                            "surface-container-high": "#e1e8fd",
+                            "tertiary-container": "#007751",
+                            "on-error-container": "#93000a",
+                            "secondary": "#855300",
+                            "on-tertiary-container": "#83ffc6",
+                            "background": "#f9f9ff",
+                            "outline": "#6e7979",
+                            "on-secondary-container": "#684000",
+                            "error": "#ba1a1a",
+                            "surface-dim": "#d3daef",
+                            "tertiary-fixed": "#6ffbbe",
+                            "surface-container-lowest": "#ffffff",
+                            "secondary-container": "#fea619",
+                            "on-surface": "#141b2b",
+                            "on-tertiary-fixed": "#002113",
+                            "secondary-fixed": "#ffddb8",
+                            "surface-bright": "#f9f9ff",
+                            "surface-variant": "#dce2f7",
+                            "tertiary": "#005c3e",
+                            "on-primary-fixed-variant": "#004f52",
+                            "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px",
+                            "card": "20px",
+                            "button": "10px",
+                            "input": "10px"
+                    },
+                    "spacing": {
+                            "max-container": "1440px",
+                            "gutter": "24px",
+                            "stack-sm": "8px",
+                            "stack-lg": "32px",
+                            "stack-md": "16px",
+                            "sidebar-width": "240px",
+                            "margin-page": "48px"
+                    },
+                    "fontFamily": {
+                            "label-sm": ["Inter"],
+                            "label-md": ["Inter"],
+                            "body-md": ["Inter"],
+                            "display": ["Inter"],
+                            "h1": ["Inter"],
+                            "h2": ["Inter"],
+                            "body-sm": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "h3": ["Inter"]
+                    },
+                    "fontSize": {
+                            "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                            "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                            "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                            "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                            "h1": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                            "h2": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                            "body-sm": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                            "h3": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }]
+                    },
+                    "boxShadow": {
+                        "warm-lift": "24px 0 48px -12px rgba(13, 115, 119, 0.08)"
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F8F6F0; } /* Soft Ivory Foundation */
+    </style>
+</head>
+<body class="text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 w-[240px] h-screen border-r bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 shadow-[24px_0_48px_-12px_rgba(13,115,119,0.08)] z-50 flex flex-col h-full py-8 font-['Inter'] text-sm tracking-tight">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-black text-slate-900 dark:text-white">ZeroHunger</h1>
+<p class="text-slate-500 text-xs mt-1">Food Surplus Platform</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Donor_Dashboard.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-[#0D7377] bg-teal-50/50 dark:bg-teal-900/20 font-semibold border-r-4 border-[#0D7377] transition-all duration-200 ease-in-out" href="List_Food.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">post_add</span>
+                        List Food
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Food_Alerts.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">campaign</span>
+                        Food Alerts
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="My_Donations.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">volunteer_activism</span>
+                        My Donations
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Volunteer_Fleet.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">group</span>
+                        Volunteers
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Meal_Forecast.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">trending_up</span>
+                        Meal Forecast
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Analytics.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">monitoring</span>
+                        Analytics
+                    </a>
+</li>
+</ul>
+</div>
+<div class="mt-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<button class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 rounded-lg w-full text-left" id="logout-btn">
+<span class="material-symbols-outlined text-xl">logout</span>
+                    Logout
+                </button>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Wrapper -->
+<div class="flex-1 flex flex-col ml-[240px] min-h-screen">
+<!-- TopNavBar -->
+<header class="h-20 w-full sticky top-0 z-40 bg-[#F8F6F0]/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800 font-['Inter'] font-medium flex items-center justify-between pr-12 pl-12 w-full">
+<div class="flex items-center gap-4">
+<span class="text-[#0D7377] bg-teal-100/50 px-3 py-1 rounded-full text-xs font-bold cursor-pointer active:opacity-70 hover:text-[#0D7377] dark:hover:text-teal-400 transition-colors">Koramangala Zone</span>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-600 dark:text-slate-400 hover:text-[#0D7377] dark:hover:text-teal-400 transition-colors cursor-pointer active:opacity-70 flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-600 dark:text-slate-400 hover:text-[#0D7377] dark:hover:text-teal-400 transition-colors cursor-pointer active:opacity-70 flex items-center justify-center">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden bg-slate-200 border-2 border-white shadow-sm">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a person looking directly at the camera. The lighting is soft and natural, emphasizing a clean, modern corporate aesthetic. The background is slightly blurred to maintain focus on the individual, fitting perfectly within a Minimalist Corporate SaaS platform interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD82MRo7XfS9aLb9Y6XWQj2l78LCwtY6o5-KyDFlREUf0s4UV3Nsn9BnpFteekbXWqMhkHsGSI-I-WsJn6Xv_jfW9ox-qk3JfUFLqDctSR6fHHMVNToWQDoHEd-DcgITAhEWyNxl3ePbKSJZewKpz9sEVVQy4oOxgTV-Ev1za_MuuAhownUOix29sY0olC-W2B0YeMbxa7i_39PejhDwPKRLNh3zTJjRepd4S5UuTr41Iov_V0Sghd9dnh-GExuK43IVA5dKDtXJxAa"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-margin-page max-w-max-container mx-auto w-full">
+<div class="mb-stack-lg">
+<h2 class="font-h1 text-h1 text-on-background">List Surplus Food</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Quickly categorize and detail the surplus food you have available for donation.</p>
+</div>
+<!-- Quick Select Bar -->
+<div class="mb-stack-lg">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase mb-stack-sm">Quick Select Category</h3>
+<div class="flex gap-4 overflow-x-auto pb-4 hide-scrollbar">
+<button class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden relative group cursor-pointer border-2 border-transparent hover:border-primary-container transition-all">
+<img alt="Grains" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A top-down view of high-quality grains, specifically beautifully arranged rice and lentils in artisan wooden bowls. The lighting is bright, soft, and natural, creating a warm, organic feel. The background is a clean, minimal surface, perfectly complementing a premium SaaS platform's clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArQm8R3vkhJNXZE1YGOEY_Ic_w5hUnOOwLTHqhFGkc_UWj5EE2uk5eMt1BInAMg6014Q5MHSPuqjqoPHE5B6iDOrkNYW-C-watF073_ryAX-8leK_PSA4r5aHf-lN_v5zwvoaSQNpaI9X0TjYfCQcoiA6oAGxNMpafbpDfIBnusjL5si-dz6ZjwHI2SiQCHbu-lF8xhpLmiDYbNW9BzFdOQkENiv2xDzBaJYpLJRyRRLoWLIeLdKTfZawsBdrURNAX-LpMQMS-RHFr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-3">
+<span class="text-white font-label-md text-label-md font-semibold">Grains</span>
+</div>
+</button>
+<button class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden relative group cursor-pointer border-2 border-transparent hover:border-primary-container transition-all">
+<img alt="Curries" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A close-up of a rich, vibrant Indian curry served in an elegant copper bowl. The lighting is warm and directional, highlighting the texture and spices of the dish. The setting suggests a high-end culinary environment, aligning with a professional, human-centric design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjtbNufblmMG7nEBrGEppuOA13jrnAwHSmfWw1sF6BB2UbjvMHsZcwhAckonMhCuk9i7HkqYy_bvKszvbaC6euMh0OdBilFosfOIUZpYLrO8rUZEJBe0Zl9F-wU-KFTKF748-0HtoHFZWhX-AQcsAQWDQn5dc6P0Gv7MpBfVJiQ4P1JXtGiUXYag4LayJfnd8Wrst9H3f5ZIQEJLkPaLVjuARO7CH9BauEmy8klcUhh8QaSm2L8Gvps2S-QLnqcC-w_lNbYXvCc8aC"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-3">
+<span class="text-white font-label-md text-label-md font-semibold">Curries</span>
+</div>
+</button>
+<button class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden relative group cursor-pointer border-2 border-primary-container transition-all">
+<img alt="Breads" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A rustic display of freshly baked artisan breads, including baguettes and sourdough, resting on a clean wooden board. The morning light streams across the crust, emphasizing its golden texture. The overall mood is warm, inviting, and professional, suitable for a high-quality food logistics platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcHt3WmblLWAJ0k9i9WNoaxRabMxis7GyDFxQCFHU3niIHpx4FohkkJ235pxg8qUVM1G8GHbmlLTt0O1kEeo1gQ2RswT7lFc9JQMn4RhaZfI1y79ILNZ5ahhbGUd2ZjbZSJWiX-l3JAkkzsa6qnlEwEuPY79eZIjwjgcacvQiLptUbikoPtiifR_1sB_2sfJDgFBlHL8HeDrFhmQaQ3Q-DmFlf0dDx6fwo6iNGsd9E4_eO5MySC_mQFc7poW2wF0a5NWMQtNwjjTbT"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-3">
+<span class="text-white font-label-md text-label-md font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                Breads
+                            </span>
+</div>
+</button>
+<button class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden relative group cursor-pointer border-2 border-transparent hover:border-primary-container transition-all">
+<img alt="Salads" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A vibrant, fresh salad featuring crisp greens, cherry tomatoes, and sliced avocado in a pristine white ceramic bowl. The lighting is extremely bright and clean, reflecting a healthy, modern lifestyle. The minimalist setting enhances the vivid colors of the fresh produce." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkeYJ0zouM1V_Il15d0r6DZg4fv1R_r-ffcdmUS8BgW6ohbEkeat5BxCPVZFoRfO9ggtT8fCMc7SdT0Gd4EYpjUbzsWINKIf5VrvdhLt__3Y5wijxX9xOErWcuOoj3btHP640CGx-hFROkHnbiUD8Is_KUmU-hFfkhbbx3KLgAXNFyWVHFrAx3YeUl9PZVMxWx2DpvwCrXt6zNC0tu_PU0pWLba1qHD_DuSz836DFO3R3bJw3PwuVujhcrvni3aoUMAp6ef3bt5cg0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-3">
+<span class="text-white font-label-md text-label-md font-semibold">Salads</span>
+</div>
+</button>
+<button class="flex-shrink-0 w-32 h-32 rounded-xl overflow-hidden relative group cursor-pointer border-2 border-transparent hover:border-primary-container transition-all">
+<img alt="Desserts" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="An elegant presentation of small, refined dessert pastries on a slate tray. The lighting is sophisticated and moody yet bright enough to show intricate details of the icing and fruit garnishes. The aesthetic is highly polished, akin to a premium catering service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpN6m0X3XBIh3tZPnLnEt_n4Qna1jLS5niDb4O3FcpJlJWNPchrNqSsqBEmQq9jEwI8i1hpEDKJtilTrHz5fq1q2mwlDWV6fmBtYfXwmWBJMxJE6gOdRislrGhDLmR3Vn0DSrfWd0j2cCDmObQRPGkqxqhgJIq0b6Ujnzi4bCC1fyHddF2aXGzDQlc9FxKkSgHdADNwb-qXCSXm1mTMz8_qvFpxAJcqktnc7zXQqvRmxdmHb4kXNrI-JwuC_QjghvLr94vNeFhL2Ex"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-3">
+<span class="text-white font-label-md text-label-md font-semibold">Desserts</span>
+</div>
+</button>
+</div>
+</div>
+<div class="flex gap-gutter items-start">
+<!-- Central Form -->
+<div class="flex-1">
+<div class="bg-white rounded-card shadow-warm-lift p-8 border-l-4 border-secondary-container hover:border-l-4 hover:border-secondary-container transition-all border border-transparent hover:border-slate-100">
+<div class="mb-stack-lg">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">What are you donating today?</label>
+<input class="w-full border-1.5 border-outline-variant/50 rounded-input px-4 py-3 font-body-lg text-body-lg text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all" placeholder="e.g., 50 boxes of vegetable biryani" type="text" value="Assorted Artisan Breads"/>
+</div>
+<div class="grid grid-cols-2 gap-stack-lg mb-stack-lg">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Quantity (Portions)</label>
+<input class="w-full border-1.5 border-outline-variant/50 rounded-input px-4 py-3 font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all" type="number" value="45"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-2">Estimated Weight (kg)</label>
+<input class="w-full border-1.5 border-outline-variant/50 rounded-input px-4 py-3 font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container/30 transition-all" type="number" value="12.5"/>
+</div>
+</div>
+<div class="mb-stack-lg">
+<label class="block font-label-sm text-label-sm text-on-surface-variant uppercase mb-3">Storage Condition</label>
+<div class="flex gap-3">
+<button class="px-5 py-2 rounded-full border border-primary-container bg-primary-container text-white font-label-md text-label-md transition-colors">Ambient</button>
+<button class="px-5 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant hover:border-primary-container hover:text-primary-container font-label-md text-label-md transition-colors">Refrigerated</button>
+<button class="px-5 py-2 rounded-full border border-outline-variant/50 text-on-surface-variant hover:border-primary-container hover:text-primary-container font-label-md text-label-md transition-colors">Hot</button>
+</div>
+</div>
+<div class="pt-4 border-t border-slate-100 flex justify-end">
+<button class="bg-[#F59E0B] hover:bg-secondary-container text-white font-label-md text-label-md font-bold py-3 px-8 rounded-button transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">campaign</span>
+                                List Donation
+                            </button>
+</div>
+</div>
+</div>
+<!-- Right Panel: TRL Estimate -->
+<div class="w-[320px] shrink-0">
+<div class="bg-white rounded-card shadow-warm-lift p-6 border border-transparent hover:border-slate-100 transition-all">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary-container">timer</span>
+<h3 class="font-h3 text-h3 text-on-background">TRL Estimate</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6">True Remaining Life based on selected category and ambient storage.</p>
+<div class="flex justify-center mb-6 relative">
+<!-- Faux Gauge -->
+<div class="w-40 h-40 rounded-full border-8 border-slate-100 relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-8 border-t-tertiary-container border-r-tertiary-container border-b-transparent border-l-transparent transform rotate-45"></div>
+<div class="text-center">
+<span class="block font-display text-display text-primary-container">4</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant uppercase">Hours</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl flex items-start gap-3 border border-outline-variant/20">
+<span class="material-symbols-outlined text-tertiary-container mt-0.5">verified_user</span>
+<div>
+<p class="font-label-md text-label-md text-on-background">Safe to Donate</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">This timeline meets the logistics requirements for local NGOs.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script type="module" src="./src/js/auth.js"></script>
+<script type="module" src="./src/js/main.js"></script>
+</body></html>

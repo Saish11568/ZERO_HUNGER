@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NGO Dashboard - ZeroHunger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "error": "#ba1a1a",
+                            "primary-fixed-dim": "#81d4d8",
+                            "on-surface": "#141b2b",
+                            "on-surface-variant": "#3e4949",
+                            "surface": "#f9f9ff",
+                            "inverse-on-surface": "#edf0ff",
+                            "secondary-fixed-dim": "#ffb95f",
+                            "surface-container-high": "#e1e8fd",
+                            "error-container": "#ffdad6",
+                            "surface-dim": "#d3daef",
+                            "surface-tint": "#00696d",
+                            "primary-container": "#0d7377",
+                            "tertiary-container": "#007751",
+                            "surface-container-highest": "#dce2f7",
+                            "outline-variant": "#bec9c9",
+                            "on-error": "#ffffff",
+                            "tertiary-fixed": "#6ffbbe",
+                            "on-tertiary-container": "#83ffc6",
+                            "secondary": "#855300",
+                            "on-primary-fixed-variant": "#004f52",
+                            "surface-container-lowest": "#ffffff",
+                            "on-error-container": "#93000a",
+                            "on-primary-container": "#a2f5f9",
+                            "on-secondary-fixed": "#2a1700",
+                            "on-secondary-container": "#684000",
+                            "on-background": "#141b2b",
+                            "on-primary": "#ffffff",
+                            "inverse-primary": "#81d4d8",
+                            "surface-bright": "#f9f9ff",
+                            "secondary-fixed": "#ffddb8",
+                            "surface-variant": "#dce2f7",
+                            "on-secondary": "#ffffff",
+                            "inverse-surface": "#293040",
+                            "background": "#f9f9ff",
+                            "on-primary-fixed": "#002021",
+                            "surface-container-low": "#f1f3ff",
+                            "secondary-container": "#fea619",
+                            "primary-fixed": "#9df0f4",
+                            "outline": "#6e7979",
+                            "on-secondary-fixed-variant": "#653e00",
+                            "tertiary": "#005c3e",
+                            "on-tertiary": "#ffffff",
+                            "surface-container": "#e9edff",
+                            "on-tertiary-fixed": "#002113",
+                            "primary": "#00595c",
+                            "tertiary-fixed-dim": "#4edea3",
+                            "on-tertiary-fixed-variant": "#005236"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "stack-md": "16px",
+                            "max-container": "1440px",
+                            "gutter": "24px",
+                            "sidebar-width": "240px",
+                            "margin-page": "48px",
+                            "stack-sm": "8px",
+                            "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                            "body-md": ["Inter"],
+                            "label-md": ["Inter"],
+                            "display": ["Inter"],
+                            "body-sm": ["Inter"],
+                            "h1": ["Inter"],
+                            "body-lg": ["Inter"],
+                            "label-sm": ["Inter"],
+                            "h3": ["Inter"],
+                            "h2": ["Inter"]
+                    },
+                    "fontSize": {
+                            "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                            "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                            "h1": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                            "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                            "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                            "h3": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                            "h2": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F8F6F0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .shadow-soft { box-shadow: 24px 0 48px -12px rgba(13,115,119,0.08); }
+        .shadow-card { box-shadow: 0 8px 32px rgba(13,115,119,0.06); }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- TopNavBar -->
+<header class="h-20 w-full sticky top-0 z-40 bg-[#F8F6F0]/80 dark:bg-slate-950/80 backdrop-blur-md hidden md:flex border-b border-slate-200/50 dark:border-slate-800">
+<div class="flex items-center justify-between pl-[288px] pr-12 w-full ml-auto">
+<div class="flex items-center gap-4">
+<span class="text-[#0D7377] bg-teal-100/50 px-3 py-1 rounded-full text-xs font-bold font-['Inter']">Koramangala Zone</span>
+</div>
+<div class="flex items-center gap-6">
+<button id="ngo-bell-btn" class="text-slate-600 dark:text-slate-400 hover:text-[#0D7377] dark:hover:text-teal-400 transition-colors cursor-pointer active:opacity-70 flex items-center justify-center relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full" id="ngo-notif-badge"></span>
+</button>
+<button class="text-slate-600 dark:text-slate-400 hover:text-[#0D7377] dark:hover:text-teal-400 transition-colors cursor-pointer active:opacity-70 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<img alt="User profile avatar" class="w-10 h-10 rounded-full border-2 border-surface-container-high object-cover shadow-sm" data-alt="A professional headshot of a female NGO coordinator in a bright, modern office setting. Soft, natural lighting highlights her face. The image has a warm, optimistic tone fitting a social good SaaS platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHo_G7FK3mjRQunPRG-GBflXHSdgB94fLwZwxnfSHIMMwBjq_S7hZI9IcPhYIk7lmRUz5cs096JKPs90Vu7iS81X4FTpRQCxZ_Gb5K7m_JfJEV748_GU590iRYxGfmIQ3D0x57BXN5veCcR_b_hu4zKnlFpNmVAELM8xQrbb4aspxVsSqr5zmvrjkVXINgfnPnzNckp0cY6QNv-0XpyrMWuPomWwrloRvZZQ32wuLEaJX9Qofg5cgyRsZGASumncV0338qzYBhz6J5"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 w-[240px] h-screen border-r border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-[24px_0_48px_-12px_rgba(13,115,119,0.08)] z-50">
+<div class="flex flex-col h-full py-8">
+<div class="px-6 mb-8 flex flex-col gap-2">
+<div class="text-xl font-black text-slate-900 dark:text-white flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-lg" data-icon="eco">eco</span>
+</div>
+                    ZeroHunger
+                </div>
+<span class="text-xs font-semibold text-secondary-container tracking-wider uppercase pl-11">Food Surplus Platform</span>
+</div>
+<div class="flex-1 flex flex-col gap-1 font-['Inter'] text-sm tracking-tight">
+<a class="flex items-center gap-3 px-6 py-3 text-[#0D7377] bg-teal-50/50 dark:bg-teal-900/20 font-semibold border-r-4 border-[#0D7377] transition-all duration-200 ease-in-out" href="NGO_Dashboard.html">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Food_Alerts.html">
+<span class="material-symbols-outlined text-xl" data-icon="campaign">campaign</span>
+                    Food Alerts
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="local_shipping">local_shipping</span>
+                    Incoming Deliveries
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Volunteer_Fleet.html">
+<span class="material-symbols-outlined text-xl" data-icon="group">group</span>
+                    Volunteers
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Meal_Forecast.html">
+<span class="material-symbols-outlined text-xl" data-icon="trending_up">trending_up</span>
+                    Meal Forecast
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 transition-all duration-200 ease-in-out" href="Analytics.html">
+<span class="material-symbols-outlined text-xl" data-icon="monitoring">monitoring</span>
+                    Analytics
+                </a>
+</div>
+<div class="mt-auto flex flex-col gap-1 font-['Inter'] text-sm tracking-tight border-t border-slate-100 pt-4 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 rounded-lg" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<button class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors hover:bg-teal-50/30 dark:hover:bg-teal-900/10 rounded-lg w-full text-left" id="logout-btn">
+<span class="material-symbols-outlined text-xl" data-icon="logout">logout</span>
+                    Logout
+                </button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-[240px] p-margin-page max-w-max-container mx-auto">
+<!-- Row 1: High-priority Alert Banner -->
+<div id="ngo-priority-alert" class="hidden mb-stack-lg bg-secondary-container/10 border-l-[6px] border-secondary-container rounded-r-xl p-6 shadow-card flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 relative overflow-hidden">
+<div class="absolute -right-10 -top-10 opacity-5">
+<span class="material-symbols-outlined text-[120px]" data-icon="warning">warning</span>
+</div>
+<div class="flex-1 relative z-10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary-container" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<h2 class="font-h3 text-on-surface">New Food Alert — Action Required</h2>
+<span class="bg-error/10 text-error font-label-sm px-3 py-1 rounded-full flex items-center gap-1 ml-4 border border-error/20">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span>
+                        Respond within 07:23
+                    </span>
+</div>
+<div id="ngo-priority-content" class="font-body-md text-on-surface-variant flex items-center flex-wrap gap-2">
+<!-- Injected by trl_listings.js -->
+</div>
+</div>
+<div id="ngo-priority-actions" class="flex items-center gap-3 w-full lg:w-auto relative z-10">
+<!-- Buttons with IDs for JS hooks -->
+</div>
+</div>
+<!-- Row 2: Stat Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-stack-lg">
+<!-- Stat 1 -->
+<div class="bg-surface-container-lowest rounded-[20px] p-6 shadow-card hover:border-outline-variant border border-transparent transition-all">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-md text-on-surface-variant uppercase tracking-wider">Meals Received This Month</h3>
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="ngo-stat-rescued" class="font-display text-on-surface">0</span>
+<span class="font-label-sm text-tertiary-container mb-2 flex items-center"><span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span> +0%</span>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface-container-lowest rounded-[20px] p-6 shadow-card hover:border-outline-variant border border-transparent transition-all">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-md text-on-surface-variant uppercase tracking-wider">Active Deliveries Right Now</h3>
+<div class="w-10 h-10 rounded-full bg-secondary-container/10 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="ngo-stat-active" class="font-display text-on-surface">0</span>
+<span class="font-body-sm text-on-surface-variant mb-2">En route</span>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface-container-lowest rounded-[20px] p-6 shadow-card hover:border-outline-variant border border-transparent transition-all">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-label-md text-on-surface-variant uppercase tracking-wider">Tonight's Forecast</h3>
+<div class="w-10 h-10 rounded-full bg-surface-tint/10 flex items-center justify-center text-surface-tint">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+</div>
+</div>
+<div class="flex items-end gap-3">
+<span id="ngo-stat-forecast" class="font-display text-on-surface">0</span>
+<span class="font-body-sm text-on-surface-variant mb-2">expected</span>
+</div>
+</div>
+</div>
+<!-- Row 3: Two-column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-stack-lg">
+<!-- Left (55%): Demand Pulse Forecast -->
+<div id="ngo-forecast-container" class="lg:col-span-7 bg-surface-container-lowest rounded-[20px] shadow-card overflow-hidden flex flex-col">
+<div class="h-24 bg-primary-container relative overflow-hidden flex items-end p-6">
+<div class="absolute inset-0 opacity-20" style="background-image: repeating-linear-gradient(45deg, #ffffff 25%, transparent 25%, transparent 75%, #ffffff 75%, #ffffff), repeating-linear-gradient(45deg, #ffffff 25%, #00696d 25%, #00696d 75%, #ffffff 75%, #ffffff); background-position: 0 0, 10px 10px; background-size: 20px 20px;"></div>
+<div class="relative z-10 flex items-center gap-2 text-on-primary">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<h3 class="font-h3">Demand Pulse Forecast</h3>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<p class="font-body-md text-on-surface-variant mb-6">Prepare kitchen for <span id="ngo-forecast-summary" class="font-semibold text-on-surface">~0 meals</span> by 8PM based on historical surplus trends.</p>
+<!-- Faux Bar Chart -->
+<div class="flex-1 flex items-end justify-between gap-4 h-48 mt-auto px-4 border-b border-outline-variant/30 pb-2 relative" id="ngo-forecast-chart">
+<div class="absolute left-0 top-0 bottom-0 flex flex-col justify-between text-[10px] text-on-surface-variant opacity-50 py-2">
+<span>50</span>
+<span>25</span>
+<span>0</span>
+</div>
+<div class="w-full flex justify-around items-end h-full pl-6">
+<div class="flex flex-col items-center gap-2 w-1/5 group">
+<div class="w-full bg-primary-container/20 rounded-t-sm group-hover:bg-primary-container/40 transition-colors relative h-[30%]"></div>
+<span class="font-label-sm text-on-surface-variant">6PM</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-1/5 group">
+<div class="w-full bg-primary-container/40 rounded-t-sm group-hover:bg-primary-container/60 transition-colors relative h-[60%]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">~30 meals</div>
+</div>
+<span class="font-label-sm text-on-surface-variant">7PM</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-1/5 group">
+<div class="w-full bg-primary-container rounded-t-sm group-hover:bg-primary transition-colors relative h-[90%]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-container text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">~45 meals</div>
+</div>
+<span class="font-label-sm text-on-surface font-bold">8PM</span>
+</div>
+<div class="flex flex-col items-center gap-2 w-1/5 group">
+<div class="w-full bg-primary-container/30 rounded-t-sm group-hover:bg-primary-container/50 transition-colors relative h-[45%]"></div>
+<span class="font-label-sm text-on-surface-variant">9PM</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Static box removed -->
+</div>
+<!-- Row 4: Incoming Deliveries Table -->
+<div class="bg-surface-container-lowest rounded-[20px] shadow-card p-6">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="local_shipping">local_shipping</span>
+<h3 class="font-h3 text-on-surface">Incoming Deliveries</h3>
+</div>
+<button class="text-primary-container font-label-md flex items-center gap-1 hover:bg-surface-container px-3 py-1.5 rounded-lg transition-colors">
+                    View All
+                </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30 text-on-surface-variant font-label-sm uppercase tracking-wider">
+<th class="py-4 px-4 font-semibold">Volunteer</th>
+<th class="py-4 px-4 font-semibold">Food Item</th>
+<th class="py-4 px-4 font-semibold text-center">Meals</th>
+<th class="py-4 px-4 font-semibold text-center">ETA</th>
+<th class="py-4 px-4 font-semibold text-center">TRL at Dispatch</th>
+<th class="py-4 px-4 font-semibold">Status</th>
+</tr>
+</thead>
+<tbody id="ngo-incoming-tbody" class="font-body-sm text-on-surface divide-y divide-outline-variant/20">
+<!-- rows will be injected by trl_listings.js when donor lists food -->
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- ── NGO Notification Popup Modal ──────────────────────────────────── -->
+<div id="ngo-notif-popup"
+     class="hidden fixed inset-0 z-[9999] items-center justify-center"
+     style="background:rgba(20,27,43,0.55);backdrop-filter:blur(4px);">
+  <!-- content injected by trl_listings.js -->
+</div>
+
+<style>
+@keyframes bounceIn {
+  0%   { transform: scale(0.85) translateY(20px); opacity: 0; }
+  60%  { transform: scale(1.03) translateY(-4px); opacity: 1; }
+  100% { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+.animate-bounce-in { animation: bounceIn 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+</style>
+
+<script type="module" src="./src/js/auth.js"></script>
+<script type="module" src="./src/js/main.js"></script>
+<script type="module" src="./src/js/trl_listings.js"></script>
+</body></html>
